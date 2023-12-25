@@ -1,0 +1,40 @@
+type Error = variant {
+  CreateFail : record { msg : text };
+  NotFound : record { msg : text };
+  UpdateFail : record { msg : text };
+};
+type File = record {
+  id : nat64;
+  updated_at : opt nat64;
+  content : text;
+  mime_type : text;
+  file_name : text;
+  folder_id : nat64;
+};
+type FilePayload = record {
+  content : text;
+  mime_type : text;
+  file_name : text;
+  folder_id : nat64;
+};
+type Folder = record { id : nat64; folder_name : text; updated_at : opt nat64 };
+type FolderPayload = record { folder_name : text };
+type Result = variant { Ok : File; Err : Error };
+type Result_1 = variant { Ok : Folder; Err : Error };
+type Result_2 = variant { Ok : vec File; Err : Error };
+type Result_3 = variant { Ok : vec Folder; Err : Error };
+service : {
+  create_file : (FilePayload) -> (Result);
+  create_folder : (FolderPayload) -> (Result_1);
+  delete_file : (nat64) -> (Result);
+  get_all_files : () -> (Result_2) query;
+  get_all_files_by_folder_id : (nat64) -> (Result_2) query;
+  get_all_files_by_folder_name : (text) -> (Result_2) query;
+  get_all_folders : () -> (Result_3) query;
+  get_file : (nat64) -> (Result) query;
+  get_folder : (nat64) -> (Result_1) query;
+  get_folder_by_name : (text) -> (Result_1) query;
+  update_file : (nat64, FilePayload) -> (Result);
+  update_file_name : (nat64, text) -> (Result);
+  update_folder : (nat64, FolderPayload) -> (Result_1);
+}

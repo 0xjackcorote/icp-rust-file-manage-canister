@@ -1,0 +1,11 @@
+{
+    "version": 1,
+    "canisters": {
+        "google_drive_backend": {
+            "type": "rust",
+            "package": "google_drive_backend",
+            "candid": "src/google_drive_backend/google_drive_backend.did"
+        }
+    },
+    "output_env_file": ".env"
+}

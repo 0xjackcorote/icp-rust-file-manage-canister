@@ -1,0 +1,2 @@
+[workspace]
+members = ["src/google_drive_backend"]
